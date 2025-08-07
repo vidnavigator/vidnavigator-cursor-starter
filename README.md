@@ -50,11 +50,17 @@ AI-powered video search, analysis, and transcription through the Model Context P
 1. 📥 **[Download Latest Extension (.dxt)](https://github.com/vidnavigator/vidnavigator-mcp-starter/releases/latest)**
 2. 🗝 [Get your free API key](https://vidnavigator.com) → User → Dev-tools
 3. Open Claude Desktop → Settings → Extensions → Install Extensions
+
 ![Cursor Demo](./claude-desktop/claude-screenshot-extensions.png)
+
 4. Select the downloaded `.dxt` file
+
 ![Cursor Demo](./claude-desktop/claude-screenshot-install.png)
+
 5. Configure your API key in the extension settings and enable it
+
 ![Cursor Demo](./claude-desktop/claude-screenshot-enable.png)
+
 6. 🎤 Start chatting!
 
 **📁 [→ Complete Claude Desktop Setup Guide](./claude-desktop/)**
