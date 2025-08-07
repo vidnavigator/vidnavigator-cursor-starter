@@ -100,8 +100,8 @@ This builds the Claude Desktop extension and copies it to `releases/vidnavigator
 2. **Create and Push Tag**:
    ```bash
    git add .
-   git commit -m "Release v1.0.1"
-   git tag v1.0.1
+   git commit -m "Release v0.1.0"
+   git tag v0.1.0
    git push origin main --tags
    ```
 
@@ -182,7 +182,7 @@ npm run build
 
 - **GitHub Actions**: Check workflow logs for build errors
 - **Permissions**: Ensure GITHUB_TOKEN has release permissions
-- **Tags**: Ensure tags follow `v*` pattern (e.g., `v1.0.0`)
+- **Tags**: Ensure tags follow `v*` pattern (e.g., `v0.1.0`)
 
 ### Extension Issues
 
