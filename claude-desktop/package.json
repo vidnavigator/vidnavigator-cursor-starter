@@ -1,0 +1,43 @@
+{
+  "name": "@vidnavigator/mcp-desktop-extension",
+  "version": "1.0.0",
+  "description": "VidNavigator MCP Server for Claude Desktop Extensions",
+  "type": "module",
+  "main": "server/index.js",
+  "bin": {
+    "vidnavigator-mcp": "server/index.js"
+  },
+  "scripts": {
+    "start": "node server/index.js",
+    "build": "node build.js",
+    "package": "npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "video",
+    "ai",
+    "search",
+    "analysis",
+    "youtube",
+    "transcription"
+  ],
+  "author": "VidNavigator Team",
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^0.4.0",
+    "archiver": "^7.0.1"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "homepage": "https://vidnavigator.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vidnavigator/vidnavigator-mcp-starter.git"
+  },
+  "bugs": {
+    "url": "https://github.com/vidnavigator/vidnavigator-mcp-starter/issues"
+  }
+}

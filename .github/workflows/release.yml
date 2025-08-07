@@ -1,0 +1,110 @@
+name: Build and Release Claude Desktop Extension
+
+on:
+  push:
+    tags:
+      - 'v*'
+  release:
+    types: [published]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  packages: write
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0  # Fetch full history to check branch ancestry
+
+    - name: Verify tag is on main branch
+      if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
+      run: |
+        echo "🔍 Checking if tag ${{ github.ref_name }} is on main branch..."
+        
+        # Get the commit hash that the tag points to
+        TAG_COMMIT=$(git rev-list -n 1 ${{ github.ref_name }})
+        echo "Tag points to commit: $TAG_COMMIT"
+        
+        # Check if this commit is reachable from main branch
+        if git merge-base --is-ancestor $TAG_COMMIT origin/main; then
+          echo "✅ Tag ${{ github.ref_name }} is on main branch. Proceeding with release."
+        else
+          echo "❌ Tag ${{ github.ref_name }} is NOT on main branch!"
+          echo "🛑 Security measure: Only tags on main branch can trigger releases."
+          echo "Please checkout main branch and create the tag from there:"
+          echo "  git checkout main"
+          echo "  git pull origin main" 
+          echo "  git tag ${{ github.ref_name }}"
+          echo "  git push origin ${{ github.ref_name }}"
+          exit 1
+        fi
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        cache-dependency-path: 'claude-desktop/package-lock.json'
+
+    - name: Install dependencies
+      working-directory: claude-desktop
+      run: npm ci
+
+    - name: Build extension
+      working-directory: claude-desktop
+      run: npm run build
+
+    - name: Get version from package.json
+      id: package-version
+      working-directory: claude-desktop
+      run: echo "version=$(node -p "require('./package.json').version")" >> $GITHUB_OUTPUT
+
+    - name: Create Release with Assets
+      if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
+      uses: softprops/action-gh-release@v2
+      with:
+        files: |
+          claude-desktop/dist/vidnavigator.dxt
+        name: Release ${{ github.ref_name }}
+        tag_name: ${{ github.ref_name }}
+        body: |
+          ## VidNavigator Claude Desktop Extension ${{ github.ref_name }}
+          
+          ### 📥 Installation
+          1. Download the `vidnavigator.dxt` file below
+          2. Open Claude Desktop → Settings → Extensions → Advanced
+          3. Click "Install Extension" and select the downloaded file
+          4. Configure your VidNavigator API key in the extension settings
+          
+          ### 🆕 What's New
+          - See the [changelog](https://github.com/vidnavigator/vidnavigator-mcp-starter/compare/${{ github.event.before }}...${{ github.sha }}) for details
+          
+          ### 🆘 Support
+          - [Documentation](https://docs.vidnavigator.com)
+          - [Get API Key](https://vidnavigator.com)
+          - [Report Issues](https://github.com/vidnavigator/vidnavigator-mcp-starter/issues)
+        draft: false
+        prerelease: ${{ contains(github.ref_name, 'beta') || contains(github.ref_name, 'alpha') }}
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Upload to Existing Release
+      if: github.event_name == 'release'
+      uses: softprops/action-gh-release@v2
+      with:
+        files: |
+          claude-desktop/dist/vidnavigator.dxt
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Upload artifact (for workflow_dispatch)
+      if: github.event_name == 'workflow_dispatch'
+      uses: actions/upload-artifact@v4
+      with:
+        name: vidnavigator-extension
+        path: claude-desktop/dist/vidnavigator.dxt
+        retention-days: 30

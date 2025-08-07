@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "vidnavigator": {
+      "type": "http",
+      "url": "https://api.vidnavigator.com/mcp/",
+      "headers": {
+        "Authorization": "Bearer YOUR_API_KEY_HERE"
+      }
+    }
+  }
+}

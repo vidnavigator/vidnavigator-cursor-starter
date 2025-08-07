@@ -1,0 +1,89 @@
+{
+  "dxt_version": "0.1",
+  "name": "vidnavigator",
+  "display_name": "VidNavigator - AI Video Search & Analysis",
+  "version": "1.0.0",
+  "description": "AI-powered video search, analysis, and transcription for YouTube and social media videos",
+  "long_description": "VidNavigator provides advanced AI-powered capabilities for searching, analyzing, and transcribing videos from YouTube and social media platforms. Features include semantic video search with AI ranking, comprehensive video analysis with summaries and Q&A, transcript extraction, and transcription of non-YouTube videos from Instagram, TikTok, Facebook, and more. Perfect for content creators, researchers, and developers who need to understand video content at scale.",
+  "author": {
+    "name": "VidNavigator Team",
+    "email": "support@vidnavigator.com",
+    "url": "https://vidnavigator.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vidnavigator/vidnavigator-mcp-starter"
+  },
+  "homepage": "https://vidnavigator.com",
+  "documentation": "https://docs.vidnavigator.com",
+  "support": "https://github.com/vidnavigator/vidnavigator-mcp-starter/issues",
+  "icon": "icon.png",
+  "screenshots": [
+    "assets/screenshots/search-results.png",
+    "assets/screenshots/video-analysis.png"
+  ],
+  "server": {
+    "type": "node",
+    "entry_point": "server/index.js",
+    "mcp_config": {
+      "command": "node",
+      "args": ["${__dirname}/server/index.js"],
+      "env": {
+        "API_KEY": "${user_config.api_key}"
+      }
+    }
+  },
+  "tools": [
+    {
+      "name": "search_videos",
+      "description": "Search for videos using advanced AI analysis with prompt engineering, content analysis, and relevance ranking"
+    },
+    {
+      "name": "analyze_video",
+      "description": "Analyze a video's content and generate summary, extract key information"
+    },
+    {
+      "name": "get_video_transcript",
+      "description": "Get the transcript for a specific video without AI analysis"
+    },
+    {
+      "name": "answer_followup_question",
+      "description": "Answer a follow-up question about a previously analyzed video"
+    },
+    {
+      "name": "get_usage",
+      "description": "Get current usage statistics including API calls, storage usage, and subscription limits"
+    },
+    {
+      "name": "transcribe_video",
+      "description": "Transcribe non-YouTube videos (Instagram, TikTok, Facebook, etc.)"
+    }
+  ],
+  "tools_generated": true,
+  "keywords": ["video", "ai", "search", "analysis", "youtube", "transcription", "content", "social-media"],
+  "license": "MIT",
+  "compatibility": {
+    "claude_desktop": ">=0.10.0",
+    "platforms": ["darwin", "win32", "linux"],
+    "runtimes": {
+      "node": ">=18.0.0"
+    }
+  },
+  "user_config": {
+    "api_key": {
+      "type": "string",
+      "title": "VidNavigator API Key",
+      "description": "Your VidNavigator API key for authentication. Get one at https://vidnavigator.com/developer/api-keys",
+      "sensitive": true,
+      "required": true,
+      "pattern": "^vna_[a-zA-Z0-9_]+$",
+      "placeholder": "vna_your_api_key_here"
+    }
+  },
+  "permissions": {
+    "network": {
+      "domains": ["api.vidnavigator.com", "vidnavigator.com"],
+      "description": "Required to access VidNavigator API services"
+    }
+  }
+}

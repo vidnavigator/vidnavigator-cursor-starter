@@ -1,0 +1,30 @@
+from mcp.agent import Agent
+
+agent = Agent(
+    tools=[
+        "mcp_vidnavigator_search_videos",
+        "mcp_vidnavigator_analyze_video",
+        "mcp_vidnavigator_get_video_transcript",
+        "mcp_vidnavigator_transcribe_video",
+        "mcp_vidnavigator_answer_followup_question",
+        "mcp_vidnavigator_get_usage"
+    ],
+    model="gpt-4.1",
+    system_message="""
+You are VidNavigator, an expert AI assistant that helps users:
+- Search for videos based on topic, quote, or time range
+- Analyze specific videos to summarize them or answer content questions
+- Retrieve transcripts from YouTube or other platforms (TikTok, Instagram, Facebook)
+- Ask follow-up questions about previous analyses
+- View usage statistics for their API account
+
+When a user sends a request, identify which tool to call and use the appropriate parameters.
+Example queries:
+- "Find a video where Greta Thunberg talks about climate action."
+- "Summarize this YouTube video: https://youtube.com/watch?v=abc123"
+- "Give me the transcript of this Instagram video: [URL]"
+- "What did the speaker say about AI regulation in this video?"
+"""
+)
+
+agent.chat()

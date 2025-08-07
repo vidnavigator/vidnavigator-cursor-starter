@@ -1,0 +1,37 @@
+{
+  "name": "vidnavigator-mcp-starter",
+  "version": "1.0.0",
+  "description": "VidNavigator MCP Server for Cursor and Claude Desktop - AI-powered video search, analysis, and transcription",
+  "type": "module",
+  "scripts": {
+    "build": "node build.js",
+    "build:claude": "cd claude-desktop && npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "release": "npm run build && echo \"Ready for release! Upload releases/vidnavigator.dxt to GitHub releases.\""
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "video",
+    "ai",
+    "search",
+    "analysis",
+    "youtube",
+    "transcription",
+    "cursor",
+    "claude-desktop"
+  ],
+  "author": "VidNavigator Team",
+  "license": "MIT",
+  "homepage": "https://vidnavigator.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vidnavigator/vidnavigator-mcp-starter.git"
+  },
+  "bugs": {
+    "url": "https://github.com/vidnavigator/vidnavigator-mcp-starter/issues"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
